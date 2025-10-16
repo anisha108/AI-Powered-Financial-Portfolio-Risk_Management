@@ -2,25 +2,33 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import PortfolioPage from './pages/PortfolioPage';
+import Risk from "./pages/Risk";
 import DashboardPage from './pages/DashboardPage';
-import Navbar from './components/layout/Navbar'; // Import the new Navbar component
+import AIAdvisorPage from "./pages/AIAdvisorPage";
+import TradePage from "./pages/TradePage";
+import Navbar from './components/layout/Navbar';
+import DashboardLayout from './components/layout/DashboardLayout'; // new layout
 
 function App() {
   return (
     <Router>
-      {/* The Navbar component is placed here so it appears on every page */}
       <Navbar />
-      
+
       <main>
-        {/* The Routes component defines which page to show based on the URL */}
         <Routes>
-          {/* Default Route: If the user goes to the base URL, redirect them to the login page */}
           <Route path="/" element={<Navigate to="/login" />} />
-          
-          {/* Page Routes: */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
+
+          {/* Dashboard layout wraps all dashboard-related pages */}
+          <Route path="/" element={<DashboardLayout />}>
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="advisor" element={<AIAdvisorPage />} />
+            <Route path="bot" element={<TradePage />} />
+            <Route path="portfolio" element={<PortfolioPage />} /> 
+            <Route path="/risk" element={<Risk />} />
+          </Route>
         </Routes>
       </main>
     </Router>
@@ -28,4 +36,3 @@ function App() {
 }
 
 export default App;
-
